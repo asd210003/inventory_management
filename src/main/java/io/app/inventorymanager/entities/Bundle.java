@@ -13,6 +13,7 @@ import java.util.List;
 public class Bundle {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bundle_id;
 
     private String name;
