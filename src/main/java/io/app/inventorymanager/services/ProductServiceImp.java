@@ -2,10 +2,12 @@ package io.app.inventorymanager.services;
 
 import io.app.inventorymanager.entities.Product;
 import io.app.inventorymanager.repositories.ProductRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProductServiceImp implements ProductService{
 
     private final ProductRepository productRepository;

@@ -2,10 +2,12 @@ package io.app.inventorymanager.services;
 
 import io.app.inventorymanager.entities.Bundle;
 import io.app.inventorymanager.repositories.BundleRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BundleServiceImp implements BundleService{
 
     private final BundleRepository bundleRepository;
