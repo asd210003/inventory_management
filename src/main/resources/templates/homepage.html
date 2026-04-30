@@ -27,6 +27,7 @@
                         <th scope="col">Product Price</th>
                         <th scope="col">Product Quantity</th>
                         <th scope="col">Product Description</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,9 @@
                         <td th:text="${p.price}"></td>
                         <td th:text="${p.quantity}"></td>
                         <td th:text="${p.description}"></td>
+                        <td>
+                            <a th:href="@{/}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Manage</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -58,6 +62,7 @@
                         <th scope="col">Bundle Price</th>
                         <th scope="col">Bundle Quantity</th>
                         <th scope="col">Bundle Description</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +75,9 @@
                         <td th:text="${b.price}"></td>
                         <td th:text="${b.quantity}"></td>
                         <td th:text="${b.description}"></td>
+                        <td>
+                            <a th:href="@{/}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Manage</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
