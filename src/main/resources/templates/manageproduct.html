@@ -10,26 +10,29 @@
 <body>
 <div class="container">
     <br>
-    <h1 class="display-5 text-center mt-3">Add Bundle</h1>
+    <h1 class="display-5 text-center mt-3">Manage Product</h1>
     <br>
     <hr>
-    <form th:action="@{/addBundle}" th:object="${bundle}" method="POST">
+    <form th:action="@{/manageProduct}" th:object="${product}" method="POST">
         <div class="row justify-content-center">
             <div class="m-3 border col-md-6">
-                <label class="row p-3 form-label fw-semibold">Bundle Name
+
+                <p><input th:field="*{product_id}" type="hidden"></p>
+
+                <label class="row form-label p-2 fw-semibold">Product Name
                     <input th:field="*{name}" type="text" class="form-control">
                 </label>
-                <label class="row p-3 form-label fw-semibold">Bundle Description
+                <label class="row form-label p-2 fw-semibold">Product Description
                     <input th:field="*{description}" type="text" class="form-control">
                 </label>
-                <label class="row p-3 form-label fw-semibold">Bundle Price
+                <label class="row form-label p-2 fw-semibold">Product Price
                     <input th:field="*{price}" type="text" class="form-control">
                 </label>
-                <label class="row p-3 form-label fw-semibold">Bundle Quantity
+                <label class="row form-label p-2 fw-semibold">Product Quantity
                     <input th:field="*{quantity}" type="text" class="form-control">
                 </label>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Add Product</button>
+                    <button type="submit" class="btn btn-primary">Confirm Changes</button>
                     <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
                 </div>
             </div>

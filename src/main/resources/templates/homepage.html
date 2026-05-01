@@ -18,7 +18,7 @@
             <a th:href="@{/addProduct}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Add Product</a>
         </div>
         <br>
-        <div style="max-height: 300px; overflow-y: auto;">
+        <div style="max-height: 325px; overflow-y: auto;">
             <table class="table table-hover shadow-sm">
                 <thead class="table-light sticky-top">
                     <tr>
@@ -41,7 +41,7 @@
                         <td th:text="${p.quantity}"></td>
                         <td th:text="${p.description}"></td>
                         <td>
-                            <a th:href="@{/}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Manage</a>
+                            <a th:href="@{/manageProduct(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Manage</a>
                         </td>
                     </tr>
                 </tbody>

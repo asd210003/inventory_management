@@ -15,17 +15,23 @@
         <hr>
         <form th:action="@{/addProduct}" th:object="${product}" method="POST">
             <div class="row justify-content-center">
-                <div class="m-3 border p-3 col-md-6">
-                    <label class="form-label fw-semibold">Product Name</label>
-                    <input th:field="*{name}" type="text" class="form-control mb-3">
-                    <label class="form-label fw-semibold">Product Description</label>
-                    <input th:field="*{description}" type="text" class="form-control mb-3">
-                    <label class="form-label fw-semibold">Product Price</label>
-                    <input th:field="*{price}" type="text" class="form-control mb-3">
-                    <label class="form-label fw-semibold">Product Quantity</label>
-                    <input th:field="*{quantity}" type="text" class="form-control mb-3">
-                    <button type="submit" class="btn btn-primary">Add Product</button>
-                    <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
+                <div class="m-3 border col-md-6">
+                    <label class="row form-label p-2 fw-semibold">Product Name
+                        <input th:field="*{name}" type="text" class="form-control">
+                    </label>
+                    <label class="row form-label p-2 fw-semibold">Product Description
+                        <input th:field="*{description}" type="text" class="form-control">
+                    </label>
+                    <label class="row form-label p-2 fw-semibold">Product Price
+                        <input th:field="*{price}" type="text" class="form-control">
+                    </label>
+                    <label class="row form-label p-2 fw-semibold">Product Quantity
+                        <input th:field="*{quantity}" type="text" class="form-control">
+                    </label>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </div>
             </div>
         </form>

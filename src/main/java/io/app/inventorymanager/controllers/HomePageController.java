@@ -28,4 +28,9 @@ public class HomePageController {
         model.addAttribute("bundles", bundles);
         return "homepage";
     }
+
+    @GetMapping("/")
+    public String redirectToHomePage() {
+        return "redirect:/homepage";
+    }
 }
