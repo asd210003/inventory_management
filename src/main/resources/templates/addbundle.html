@@ -28,8 +28,32 @@
                 <label class="row p-3 form-label fw-semibold">Bundle Quantity
                     <input th:field="*{quantity}" type="text" class="form-control">
                 </label>
+                <label class="row px-3 form-label fw-semibold">Add Products</label>
+                <div style="max-height: 215px; overflow-y: auto;" class="mb-1">
+                    <table class="table table-hover shadow-md">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p : ${products}">
+                                <td th:text="${p.product_id}"></td>
+                                <td th:text="${p.name}"></td>
+                                <td th:text="${p.quantity}"></td>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Add Product</button>
+                    <button type="submit" class="btn btn-primary">Add Bundle</button>
                     <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
                 </div>
             </div>

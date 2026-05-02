@@ -35,4 +35,10 @@ public class ManageProductController {
         productService.updateProduct(product);
         return "productupdated";
     }
+
+    @GetMapping("/deleteProduct")
+    public String deleteProduct(@RequestParam("id") Long id) {
+        productService.deleteById(id);
+        return "deleteproduct";
+    }
 }

@@ -9,33 +9,42 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
-public class AddBundleController {
+public class ManageBundleController {
 
     private final BundleService bundleService;
     private final ProductService productService;
 
-    public AddBundleController(BundleService bundleService, ProductService productService) {
+    public ManageBundleController(BundleService bundleService, ProductService productService) {
         this.bundleService = bundleService;
         this.productService = productService;
     }
 
-    @GetMapping("/addBundle")
-    public String addBundle(Model model) {
-        List<Product> products = productService.listProducts();
+    @GetMapping("/manageBundle")
+    public String manageBundle(@RequestParam("id") Long id, Model model) {
         Bundle bundle = new Bundle();
+        List<Product> products = productService.listProducts();
+        if (bundleService.getBundleById(id).isPresent()) {
+            bundle = bundleService.getBundleById(id).get();
+        }
         model.addAttribute("bundle", bundle);
         model.addAttribute("products", products);
-        return "addbundle";
+        return "managebundle";
+        }
+
+    @PostMapping("/manageBundle")
+    public String updateBundle(@ModelAttribute("bundle") Bundle bundle) {
+        bundleService.updateBundle(bundle);
+        return "bundleupdated";
     }
 
-    @PostMapping("/addBundle")
-    public String submitBundle(@ModelAttribute("bundle") Bundle bundle) {
-        bundleService.saveBundle(bundle);
-        return "confirmbundle";
+    @GetMapping("/deleteBundle")
+    public String deleteBundle(@RequestParam("id") Long id) {
+        bundleService.deleteById(id);
+        return "deletebundle";
     }
-
 }

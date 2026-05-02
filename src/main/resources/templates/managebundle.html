@@ -10,14 +10,14 @@
 <body>
 <div class="container">
     <br>
-    <h1 class="display-5 text-center mt-3">Manage Product</h1>
+    <h1 class="display-5 text-center mt-3">Manage Bundle</h1>
     <br>
     <hr>
-    <form th:action="@{/manageProduct}" th:object="${product}" method="POST">
+    <form th:action="@{/manageBundle}" th:object="${bundle}" method="POST">
         <div class="row justify-content-center">
             <div class="m-3 border col-md-6">
 
-                <p><input th:field="*{product_id}" type="hidden"></p>
+                <p><input th:field="*{bundle_id}" type="hidden"></p>
 
                 <label class="row form-label p-2 fw-semibold">Product Name
                     <input th:field="*{name}" type="text" class="form-control">
@@ -34,8 +34,8 @@
                 <div class="mb-3 clearfix">
                     <button type="submit" class="btn btn-primary">Update</button>
                     <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
-                    <a th:href="@{/deleteProduct(id=${product.product_id})}" class="btn btn-danger float-end"
-                        onclick="if(!(confirm('Are you sure you want to delete this product?')))return false">Delete</a>
+                    <a th:href="@{/deleteBundle(id=${bundle.bundle_id})}" class="btn btn-danger float-end"
+                       onclick="if(!(confirm('Are you sure you want to delete this bundle?')))return false">Delete</a>
                 </div>
             </div>
         </div>
