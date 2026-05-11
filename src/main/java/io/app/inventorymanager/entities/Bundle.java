@@ -3,12 +3,18 @@ package io.app.inventorymanager.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "bundles")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class Bundle {
 
@@ -25,7 +31,7 @@ public class Bundle {
     private int quantity;
 
     @ManyToMany(mappedBy = "bundles")
-    private List<Product> products;
+    private Set<Product> products = new HashSet<>();
 
     public Bundle() {}
 }

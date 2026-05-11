@@ -31,6 +31,29 @@
                 <label class="row form-label p-2 fw-semibold">Product Quantity
                     <input th:field="*{quantity}" type="text" class="form-control">
                 </label>
+
+                <label class="row px-3 form-label fw-semibold">Add Products</label>
+                <div style="max-height: 215px; overflow-y: auto;" class="mb-1">
+                    <table class="table table-hover shadow-md">
+                        <thead class="table-light sticky-top">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="p : ${products}">
+                            <td th:text="${p.product_id}"></td>
+                            <td th:text="${p.name}"></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-secondary" type="submit" name="addProduct">Add</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="mb-3 clearfix">
                     <button type="submit" class="btn btn-primary">Update</button>
                     <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>

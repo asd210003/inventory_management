@@ -29,25 +29,44 @@
                     <input th:field="*{quantity}" type="text" class="form-control">
                 </label>
                 <label class="row px-3 form-label fw-semibold">Add Products</label>
-                <div style="max-height: 215px; overflow-y: auto;" class="mb-1">
+                <div style="max-height: 107px; overflow-y: scroll; table-layout: fixed; width: 100%" class="mb-1">
                     <table class="table table-hover shadow-md">
                         <thead class="table-light sticky-top">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col"></th>
-                            </tr>
+                        <tr>
+                            <th style="width: 15%" scope="col"></th>
+                            <th style="width: 55%" scope="col"></th>
+                            <th style="width: 30%" scope="col"></th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="p : ${products}">
-                                <td th:text="${p.product_id}"></td>
-                                <td th:text="${p.name}"></td>
-                                <td th:text="${p.quantity}"></td>
-                                <td>
-                                    <input type="checkbox">
-                                </td>
-                            </tr>
+                        <tr th:each="p : ${products}">
+                            <td th:text="${p.product_id}"></td>
+                            <td th:text="${p.name}"></td>
+                            <td>
+                                <a th:href="@{/addProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Add</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <label class="row px-3 form-label fw-semibold">Added</label>
+                <div style="max-height: 107px; overflow-y: scroll; table-layout: fixed; width: 100%" class="mb-1">
+                    <table class="table table-hover shadow-md">
+                        <thead class="table-light sticky-top">
+                        <tr>
+                            <th style="width: 15%" scope="col"></th>
+                            <th style="width: 55%" scope="col"></th>
+                            <th style="width: 30%" scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="p : ${productsAdded}">
+                            <td th:text="${p.product_id}"></td>
+                            <td th:text="${p.name}"></td>
+                            <td>
+                                <a th:href="@{/removeProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Remove</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
