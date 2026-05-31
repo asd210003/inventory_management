@@ -2,6 +2,7 @@ package io.app.inventorymanager.controllers;
 
 import io.app.inventorymanager.entities.Product;
 import io.app.inventorymanager.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class ManageProductController {
     }
 
     @PostMapping("/manageProduct")
-    public String updateProduct(@ModelAttribute("product") Product product) {
+    public String updateProduct(@ModelAttribute("product") @Valid Product product) {
         productService.updateProduct(product);
         return "productupdated";
     }

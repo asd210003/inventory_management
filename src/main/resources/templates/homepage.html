@@ -62,7 +62,7 @@
                         <th scope="col">Bundle Price</th>
                         <th scope="col">Bundle Quantity</th>
                         <th scope="col">Bundle Description</th>
-                        <th scope="col"></th>
+                        <th scope="col">Manage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +76,8 @@
                         <td th:text="${b.quantity}"></td>
                         <td th:text="${b.description}"></td>
                         <td>
-                            <a th:href="@{/manageBundle(id=${b.bundle_id})}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Manage</a>
+                            <a th:href="@{/manageBundle(id=${b.bundle_id})}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Bundle</a>
+                            <a th:href="@{/manageBundle/manageBundleProducts(id=${b.bundle_id})}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Products</a>
                         </td>
                     </tr>
                 </tbody>

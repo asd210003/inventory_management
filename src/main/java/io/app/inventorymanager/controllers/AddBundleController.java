@@ -4,14 +4,17 @@ import io.app.inventorymanager.entities.Bundle;
 import io.app.inventorymanager.entities.Product;
 import io.app.inventorymanager.services.BundleService;
 import io.app.inventorymanager.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @SessionAttributes("bundle")
+@RequestMapping("/addBundle")
 public class AddBundleController {
 
     private final BundleService bundleService;
@@ -22,41 +25,62 @@ public class AddBundleController {
         this.productService = productService;
     }
 
-    @GetMapping("/addBundle")
+    @GetMapping
     public String addBundle(Model model) {
-        List<Product> products = productService.listProducts();
         model.addAttribute("bundle", new Bundle());
-        model.addAttribute("products", products);
         return "addbundle";
     }
 
-    @PostMapping("/addBundle")
-    public String submitBundle(@ModelAttribute("bundle") Bundle bundle) {
+    @PostMapping
+    public String addBundle(
+            @Valid @ModelAttribute("bundle") Bundle bundle,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
+            return "addbundle";
+        }
         bundleService.saveBundle(bundle);
-        return "confirmbundle";
+
+        return "redirect:/addBundle/addBundleProducts";
     }
 
     @GetMapping("/addProducts")
-    public String addProduct(@RequestParam("id") Long id, Model model, @ModelAttribute("bundle") Bundle bundle) {
+    public String addProducts(@RequestParam("id") Long id, Model model, @ModelAttribute("bundle") Bundle bundle) {
         Product product = productService.getProductById(id).get();
         bundle.getProducts().add(product);
-        bundleService.saveBundle(bundle);
-        model.addAttribute("bundle", bundle);
-        model.addAttribute("products", productService.listProducts());
+        List<Product> products = productService.listProducts();
+        products.removeIf(p -> bundle.getProducts().contains(p));
+        model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
-        return "addbundle";
+        return "addbundleproducts";
     }
 
     @GetMapping("/removeProducts")
-    public String removeProduct(@RequestParam("id") Long id, Model model, @ModelAttribute("bundle") Bundle bundle) {
+    public String removeProducts(@RequestParam("id") Long id, Model model, @ModelAttribute("bundle") Bundle bundle) {
         Product product = productService.getProductById(id).get();
         bundle.getProducts().remove(product);
-        bundleService.saveBundle(bundle);
-        model.addAttribute("bundle", bundle);
-        model.addAttribute("products", productService.listProducts());
+        List<Product> products = productService.listProducts();
+        products.removeIf(p -> bundle.getProducts().contains(p));
+        model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
-        return "addbundle";
+        return "addbundleproducts";
+
     }
 
+    @GetMapping("/addBundleProducts")
+    public String addBundleProducts(Model model, @ModelAttribute("bundle") Bundle bundle) {
+        model.addAttribute("bundle", bundle);
+        List<Product> products = productService.listProducts();
+        products.removeIf(product -> bundle.getProducts().contains(product));
+        model.addAttribute("products", products);
+        model.addAttribute("productsAdded", bundle.getProducts());
+        return "addbundleproducts";
+    }
 
+    @PostMapping("/addBundleProducts")
+    public String updateBundleProducts(@ModelAttribute("bundle") Bundle bundle) {
+        bundleService.updateBundle(bundle);
+        return "confirmbundle";
+    }
 }

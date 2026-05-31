@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Bundles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <br>
+    <h1 class="display-5 text-center mt-3">Manage Bundle Products</h1>
+    <br>
+    <hr>
+    <form th:action="@{/manageBundle/manageBundleProducts}" th:object="${bundle}" method="POST">
+        <table class="table table-hover shadow-md">
+            <thead class="table-light sticky-top">
+            <tr>
+                <th style="width: 15%" scope="col"></th>
+                <th style="width: 55%" scope="col"></th>
+                <th style="width: 30%" scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${products}">
+                <td th:text="${p.product_id}"></td>
+                <td th:text="${p.name}"></td>
+                <td>
+                    <a th:href="@{/manageBundle/addProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Add</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <label class="row px-3 form-label fw-semibold">Added</label>
+        <table class="table table-hover shadow-md">
+            <thead class="table-light sticky-top">
+            <tr>
+                <th style="width: 15%" scope="col"></th>
+                <th style="width: 55%" scope="col"></th>
+                <th style="width: 30%" scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${productsAdded}">
+                <td th:text="${p.product_id}"></td>
+                <td th:text="${p.name}"></td>
+                <td>
+                    <a th:href="@{/manageBundle/removeProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Remove</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Update Bundle</button>
+            <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
