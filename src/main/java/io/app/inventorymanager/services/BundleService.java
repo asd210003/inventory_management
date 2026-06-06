@@ -16,4 +16,6 @@ public interface BundleService {
     public Optional<Bundle> getBundleById(Long bundle_id);
 
     public List<Bundle> listBundles();
+
+    public List<Bundle> searchBundles(String searchTerm);
 }

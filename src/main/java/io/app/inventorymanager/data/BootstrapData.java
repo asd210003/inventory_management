@@ -1,6 +1,8 @@
 package io.app.inventorymanager.data;
 
+import io.app.inventorymanager.entities.Bundle;
 import io.app.inventorymanager.entities.Product;
+import io.app.inventorymanager.services.BundleService;
 import io.app.inventorymanager.services.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -9,9 +11,11 @@ import org.springframework.stereotype.Component;
 public class BootstrapData implements CommandLineRunner {
 
     private final ProductService productService;
+    private final BundleService bundleService;
 
-    public BootstrapData(ProductService productService) {
+    public BootstrapData(ProductService productService, BundleService bundleService) {
         this.productService = productService;
+        this.bundleService = bundleService;
     }
 
     public void run(String... args) {
@@ -63,5 +67,14 @@ public class BootstrapData implements CommandLineRunner {
         product7.setPrice(1500.00);
         product7.setQuantity(1);
         productService.saveProduct(product7);
+
+        Bundle bundle = new Bundle();
+        bundle.setName("Item");
+        bundle.setDescription("Description");
+        bundle.setPrice(100.00);
+        bundle.setQuantity(1);
+        bundle.getProducts().add(product);
+        bundle.getProducts().add(product2);
+        bundleService.saveBundle(bundle);
     }
 }

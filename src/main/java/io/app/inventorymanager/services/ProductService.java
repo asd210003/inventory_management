@@ -16,4 +16,6 @@ public interface ProductService {
     public Optional<Product> getProductById(Long product_id);
 
     public List<Product> listProducts();
+
+    public List<Product> searchProducts(String searchTerm);
 }

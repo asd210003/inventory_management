@@ -40,4 +40,9 @@ public class ProductServiceImp implements ProductService{
     public List<Product> listProducts() {
         return productRepository.findAll();
     }
+
+    @Override
+    public List<Product> searchProducts(String searchTerm) {
+        return productRepository.filterBySearch(searchTerm);
+    }
 }

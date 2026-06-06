@@ -41,4 +41,9 @@ public class BundleServiceImp implements BundleService{
     public List<Bundle> listBundles() {
         return bundleRepository.findAll();
     }
+
+    @Override
+    public List<Bundle> searchBundles(String search) {
+        return bundleRepository.searchByName(search);
+    }
 }

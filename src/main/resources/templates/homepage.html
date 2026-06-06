@@ -17,6 +17,14 @@
             <h3>Products</h3>
             <a th:href="@{/addProduct}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Add Product</a>
         </div>
+        <form th:action="@{/searchProductAndBundle}" method="GET">
+            <div class="input-group mb-2 mt-2">
+                <input type="text" name="productKeyword" id="productKeyword" th:value="${productKeyword}" class="form-control" placeholder="Search Products">
+                <input type="hidden" name="bundleKeyword" th:value="${bundleKeyword}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                <a th:href="@{/searchProductAndBundle(productKeyword=${null}, bundleKeyword=${bundleKeyword})}" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </form>
         <br>
         <div style="max-height: 325px; overflow-y: auto;">
             <table class="table table-hover shadow-sm">
@@ -52,6 +60,14 @@
             <h3>Bundles</h3>
             <a th:href="@{/addBundle}" class="btn btn-sm btn-outline-secondary" style="height: 30px">Add Bundle</a>
         </div>
+            <form th:action="@{/searchProductAndBundle}" method="GET">
+            <div class="input-group mb-2 mt-2">
+                <input type="text" name="bundleKeyword" id="bundleKeyword" th:value="${bundleKeyword}" class="form-control" placeholder="Search Bundles">
+                <input type="hidden" name="productKeyword" th:value="${productKeyword}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                <a th:href="@{/searchProductAndBundle(bundleKeyword=${null}, productKeyword=${productKeyword})}" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </form>
         <br>
         <div style="max-height: 300px; overflow-y: auto;" class="mb-2">
             <table class="table table-hover shadow-sm">
