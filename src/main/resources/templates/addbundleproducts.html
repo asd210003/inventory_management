@@ -11,49 +11,59 @@
 <div class="container">
     <br>
     <h1 class="display-5 text-center mt-3">Add Products to Bundle</h1>
+    <p class="h6 text-center mt-3">Only products with enough quantity to fit in this bundle are listed.<p>
     <br>
     <hr>
     <form th:action="@{/addBundle/addBundleProducts}" th:object="${bundle}" method="POST">
-        <table class="table table-hover shadow-md">
-            <thead class="table-light sticky-top">
-            <tr>
-                <th style="width: 15%" scope="col"></th>
-                <th style="width: 55%" scope="col"></th>
-                <th style="width: 30%" scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="p : ${products}">
-                <td th:text="${p.product_id}"></td>
-                <td th:text="${p.name}"></td>
-                <td>
-                    <a th:href="@{/addBundle/addProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Add</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <label class="row px-3 form-label fw-semibold">Added</label>
+        <label class="row px-3 form-label fw-semibold">Products Available</label>
+        <div style="max-height: 325px; overflow-y: auto;">
             <table class="table table-hover shadow-md">
                 <thead class="table-light sticky-top">
                 <tr>
-                    <th style="width: 15%" scope="col"></th>
-                    <th style="width: 55%" scope="col"></th>
-                    <th style="width: 30%" scope="col"></th>
+                    <th style="width: 15%" scope="col">ID</th>
+                    <th style="width: 55%" scope="col">Name</th>
+                    <th style="width: 20%" scope="col">Quantity</th>
+                    <th style="width: 10%" scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${products}">
+                    <td th:text="${p.product_id}"></td>
+                    <td th:text="${p.name}"></td>
+                    <td th:text="${p.quantity}"></td>
+                    <td>
+                        <a th:href="@{/addBundle/addProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Add</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <label class="row px-3 form-label fw-semibold">Products Added</label>
+        <div style="max-height: 325px; overflow-y: auto;">
+            <table class="table table-hover shadow-md">
+                <thead class="table-light sticky-top">
+                <tr>
+                    <th style="width: 15%" scope="col">ID</th>
+                    <th style="width: 55%" scope="col">Name</th>
+                    <th style="width: 20%" scope="col">Quantity</th>
+                    <th style="width: 10%" scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="p : ${productsAdded}">
                     <td th:text="${p.product_id}"></td>
                     <td th:text="${p.name}"></td>
+                    <td th:text="${p.quantity}"></td>
                     <td>
                         <a th:href="@{/addBundle/removeProducts(id=${p.product_id})}" class="btn btn-sm btn-outline-secondary">Remove</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
+        </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Add Bundle</button>
-                <a th:href="@{/addBundle}" class="btn btn-secondary">Go Back</a>
+                <a th:href="@{/addBundle/back}" class="btn btn-secondary">Go Back</a>
             </div>
     </form>
 </div>

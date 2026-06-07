@@ -29,11 +29,11 @@ public class Bundle {
     @NotBlank(message = "Bundle description cannot be blank")
     private String description;
 
-    @Min(value = 0, message = "Bundle price cannot be negative")
+    @Min(value = 0, message = "Bundle price must be 0 or greater")
     @NotNull(message = "Bundle price cannot be empty")
     private Double price;
 
-    @Min(value = 0, message = "Bundle quantity cannot be negative")
+    @Min(value = 1, message = "Bundle quantity cannot less than 1")
     @NotNull(message = "Bundle quantity cannot be empty")
     private int quantity;
 

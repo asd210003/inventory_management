@@ -31,13 +31,18 @@ public class AddBundleController {
         return "addbundle";
     }
 
+    @GetMapping("/back")
+    public String back(@ModelAttribute("bundle") Bundle bundle, Model model) {
+        model.addAttribute("bundle", bundle);
+        return "addbundle";
+    }
+
     @PostMapping
     public String addBundle(
             @Valid @ModelAttribute("bundle") Bundle bundle,
             BindingResult result) {
 
         if (result.hasErrors()) {
-            System.out.println(result.getAllErrors());
             return "addbundle";
         }
         bundleService.saveBundle(bundle);
@@ -51,6 +56,7 @@ public class AddBundleController {
         bundle.getProducts().add(product);
         List<Product> products = productService.listProducts();
         products.removeIf(p -> bundle.getProducts().contains(p));
+        products.removeIf(p -> bundle.getQuantity() > p.getQuantity());
         model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
         return "addbundleproducts";
@@ -62,6 +68,7 @@ public class AddBundleController {
         bundle.getProducts().remove(product);
         List<Product> products = productService.listProducts();
         products.removeIf(p -> bundle.getProducts().contains(p));
+        products.removeIf(p -> bundle.getQuantity() > p.getQuantity());
         model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
         return "addbundleproducts";
@@ -73,6 +80,7 @@ public class AddBundleController {
         model.addAttribute("bundle", bundle);
         List<Product> products = productService.listProducts();
         products.removeIf(product -> bundle.getProducts().contains(product));
+        products.removeIf(product -> bundle.getQuantity() > product.getQuantity());
         model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
         return "addbundleproducts";
@@ -82,5 +90,13 @@ public class AddBundleController {
     public String updateBundleProducts(@ModelAttribute("bundle") Bundle bundle) {
         bundleService.updateBundle(bundle);
         return "confirmbundle";
+    }
+
+    @GetMapping("/cancelBundle")
+    public String cancelBundle(@RequestParam("id") Long id) {
+        if (bundleService.getBundleById(id).isPresent()) {
+            bundleService.deleteById(id);
+        }
+        return "redirect:/homepage";
     }
 }

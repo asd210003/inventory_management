@@ -7,6 +7,7 @@ import io.app.inventorymanager.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +39,10 @@ public class ManageBundleController {
         }
 
     @PostMapping
-    public String updateBundle(@ModelAttribute("bundle") Bundle bundle) {
+    public String updateBundle(@ModelAttribute("bundle") @Valid Bundle bundle, BindingResult result) {
+        if (result.hasErrors()) {
+            return "managebundle";
+        }
         bundleService.updateBundle(bundle);
         return "bundleupdated";
     }
@@ -53,8 +57,13 @@ public class ManageBundleController {
     public String addProduct(@RequestParam("id") Long id, Model model,@Valid @ModelAttribute("bundle") Bundle bundle) {
         Product product = productService.getProductById(id).get();
         bundle.getProducts().add(product);
+        List<Product> products = productService.listProducts();
+        for (Product p : bundle.getProducts()) {
+            products.remove(p);
+        }
+        products.removeIf(p -> bundle.getQuantity() > p.getQuantity());
         model.addAttribute("bundle", bundle);
-        model.addAttribute("products", productService.listProducts());
+        model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
         return "managebundleproducts";
     }
@@ -63,8 +72,13 @@ public class ManageBundleController {
     public String removeProduct(@RequestParam("id") Long id, Model model, @ModelAttribute("bundle") Bundle bundle) {
         Product product = productService.getProductById(id).get();
         bundle.getProducts().remove(product);
+        List<Product> products = productService.listProducts();
+        for (Product p : bundle.getProducts()) {
+            products.remove(p);
+        }
+        products.removeIf(p -> bundle.getQuantity() > p.getQuantity());
         model.addAttribute("bundle", bundle);
-        model.addAttribute("products", productService.listProducts());
+        model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
         return "managebundleproducts";
     }
@@ -72,12 +86,20 @@ public class ManageBundleController {
     @GetMapping("/manageBundleProducts")
     public String manageBundleProducts(@RequestParam("id") Long id, Model model) {
         Bundle bundle = bundleService.getBundleById(id).get();
-        System.out.println(bundle.getBundle_id());
         model.addAttribute("bundle", bundle);
         List<Product> products = productService.listProducts();
         products.removeIf(product -> bundle.getProducts().contains(product));
+        products.removeIf(product -> bundle.getQuantity() > product.getQuantity());
         model.addAttribute("products", products);
         model.addAttribute("productsAdded", bundle.getProducts());
         return "managebundleproducts";
     }
+
+    @PostMapping("/updateBundleProducts")
+    public String updateBundleProducts(@ModelAttribute("bundle") Bundle bundle) {
+        bundleService.updateBundle(bundle);
+        return "confirmbundle";
+    }
+
+
 }

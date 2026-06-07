@@ -22,21 +22,26 @@
                 <label class="row form-label p-2 fw-semibold">Product Name
                     <input th:field="*{name}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="small text-danger fw-lighter"></p>
                 <label class="row form-label p-2 fw-semibold">Product Description
                     <input th:field="*{description}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="small text-danger fw-lighter"></p>
                 <label class="row form-label p-2 fw-semibold">Product Price
                     <input th:field="*{price}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="small text-danger fw-lighter"></p>
                 <label class="row form-label p-2 fw-semibold">Product Quantity
                     <input th:field="*{quantity}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="small text-danger fw-lighter"></p>
                 <div class="mb-3 clearfix">
                     <button type="submit" class="btn btn-primary">Update</button>
                     <a th:href="@{/homepage}" class="btn btn-secondary">Cancel</a>
                     <a th:href="@{/deleteProduct(id=${product.product_id})}" class="btn btn-danger float-end"
                         onclick="if(!(confirm('Are you sure you want to delete this product?')))return false">Delete</a>
                 </div>
+                <p th:if="${bundleError}" th:text="${bundleError}" class="small text-danger fw-lighter mt-2"></p>
             </div>
         </div>
     </form>

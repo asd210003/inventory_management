@@ -5,6 +5,7 @@ import io.app.inventorymanager.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +33,24 @@ public class ManageProductController {
     }
 
     @PostMapping("/manageProduct")
-    public String updateProduct(@ModelAttribute("product") @Valid Product product) {
+    public String updateProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "manageproduct";
+        }
         productService.updateProduct(product);
         return "productupdated";
     }
 
     @GetMapping("/deleteProduct")
-    public String deleteProduct(@RequestParam("id") Long id) {
+    public String deleteProduct(@RequestParam("id") Long id, Model model) {
+        if (productService.getProductById(id).isPresent()) {
+            Product product = productService.getProductById(id).get();
+            if (!product.getBundles().isEmpty()) {
+                model.addAttribute("product", product);
+                model.addAttribute("bundleError", "This product is currently in a bundle and cannot be deleted.");
+                return "manageproduct";
+            }
+        }
         productService.deleteById(id);
         return "deleteproduct";
     }

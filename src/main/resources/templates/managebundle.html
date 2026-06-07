@@ -19,15 +19,19 @@
                 <label class="row p-3 form-label fw-semibold">Bundle Name
                     <input th:field="*{name}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="small text-danger fw-lighter"></p>
                 <label class="row p-3 form-label fw-semibold">Bundle Description
                     <input th:field="*{description}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="small text-danger fw-lighter"></p>
                 <label class="row p-3 form-label fw-semibold">Bundle Price
                     <input th:field="*{price}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="small text-danger fw-lighter"></p>
                 <label class="row p-3 form-label fw-semibold">Bundle Quantity
                     <input th:field="*{quantity}" type="text" class="form-control">
                 </label>
+                <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="small text-danger fw-lighter"></p>
                 </div>
 
                 <div class="mb-3">

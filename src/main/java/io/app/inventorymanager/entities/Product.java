@@ -31,9 +31,11 @@ public class Product {
     private String description;
 
     @Min(value = 0, message = "Product price cannot be negative")
+    @NotNull(message = "Product price cannot be empty")
     private Double price;
 
-    @Min(value = 1, message = "Product quantity cannot be negative")
+    @Min(value = 0, message = "Product quantity cannot be negative")
+    @NotNull(message = "Product quantity cannot be empty")
     private Integer quantity;
 
 
